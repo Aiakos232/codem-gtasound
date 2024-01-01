@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/vue@next"></script>
+        <script src="https://unpkg.com/vuex@4.0.0/dist/vuex.global.js"></script>
+        <script src="https://cdn.tailwindcss.com/3.3.5"></script>
+        <title>Codem Sound list</title>
+        <style>
+            @font-face {
+                src: url("./fonts/SF-PRO-ROUNDED-BOLD.OTF");
+                font-family: "sf-pro-rounded-bold";
+            }
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <div v-if="show" class="w-full h-[100vh] flex items-center justify-center">
+                <div class="w-[50%] h-[60%]" style="background-image: url(./images/background2.png); background-size: 100% 100%">
+                    <div class="w-full h-[4%] flex items-center justify-center">
+                        <h2 style="font-family: sf-pro-rounded-bold; color: white; font-size: 0.7vw">Sound List</h2>
+                    </div>
+                    <div class="w-full h-[7%] flex items-center justify-center">
+                        <div
+                            class="w-[90%] h-[80%] rounded-[1vw]"
+                            style="background: rgba(30, 72, 105, 0.658); box-shadow: 0px 1px 4px 0px rgba(255, 5, 5, 0.18) inset"
+                        >
+                            <input
+                                type="text"
+                                class="w-full h-full"
+                                v-model="searchInput"
+                                placeholder="Search Sound"
+                                style="
+                                    border: none;
+                                    text-indent: 1vw;
+                                    font-family: sf-pro-rounded-bold;
+                                    color: white;
+                                    font-size: 0.7vw;
+                                    outline: none;
+                                    background-color: transparent;
+                                "
+                            />
+                        </div>
+                    </div>
+                    <div class="w-full h-[85%] overflow-auto no-scrollbar">
+                        <div
+                            v-for="(data,index) in filterByTermAllData"
+                            @mouseover="isHover = index"
+                            @mouseleave="isHover = -1"
+                            class="w-full h-[9%] mt-[1vh] flex items-center justify-center"
+                        >
+                            <div
+                                :style="isHover == index ? 'background-color: rgba(84, 141, 232, 0.548)' : 'background-color: rgba(84, 141, 232, 0.2)'"
+                                class="w-[90%] h-full flex items-center justify-start rounded-[0.3vw]"
+                            >
+                                <div class="w-[5%] h-full flex items-center justify-center">
+                                    <h2 style="font-family: sf-pro-rounded-bold; color: white; font-size: 0.7vw">{{index +1 }}</h2>
+                                </div>
+                                <div
+                                    class="w-[35%] h-full flex items-center justify-start"
+                                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+                                >
+                                    <h2 style="font-family: sf-pro-rounded-bold; color: white; font-size: 0.7vw">{{data.audioname}}</h2>
+                                </div>
+                                <div class="w-[5%] h-full"></div>
+                                <div
+                                    class="w-[40%] h-full flex items-center justify-start"
+                                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+                                >
+                                    <h2 style="font-family: sf-pro-rounded-bold; color: white; font-size: 0.7vw">{{data.audioref}}</h2>
+                                </div>
+                                <div class="w-[8%] h-full flex items-center justify-center">
+                                    <img class="h-[50%] cursor-pointer" @click="soundPlay(data)" src="./images/playbutton.png" alt="" />
+                                </div>
+                                <div class="w-[8%] h-full ml-[0.5vw] flex items-center justify-center">
+                                    <img class="h-[50%] cursor-pointer" @click="copyData(data)" src="./images/copyicon.png" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://unpkg.com/swiper@5.3.8/js/swiper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js" type="text/javascript"></script>
+        <script src="./js/app.js" type="module"></script>
+    </body>
+</html>
